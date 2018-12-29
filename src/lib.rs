@@ -1,6 +1,6 @@
 use std::ops::{Add, Sub, Mul, Div, Neg};
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Copy, Clone)]
 pub struct Tuple {
     pub x: f64,
     pub y: f64,
@@ -95,6 +95,16 @@ pub fn normalise(v: &Tuple) -> Tuple {
         z: v.z / mag,
         w: v.w / mag
     }
+}
+
+pub fn dot(a: &Tuple, b: &Tuple) -> f64 {
+    a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w
+}
+
+pub fn cross(a: &Tuple, b: &Tuple) -> Tuple {
+    vector(a.y * b.z - a.z * b.y,
+           a.z * b.x - a.x * b.z,
+           a.x * b.y - a.y * b.x)
 }
 
 #[cfg(test)]
@@ -214,5 +224,20 @@ mod tests {
         let v = vector(1.0, 2.0, 3.0);
         let mag = magnitude(&v);
         assert_eq!(normalise(&v), vector(1.0 / mag, 2.0 / mag, 3.0 / mag))
+    }
+
+    #[test]
+    fn dot_product_of_two_vectors() {
+        let v1 = vector(1.0, 2.0, 3.0);
+        let v2 = vector(2.0, 3.0, 4.0);
+        assert_eq!(dot(&v1, &v2), 20.0_f64);
+    }
+
+    #[test]
+    fn cross_product_of_two_vectors() {
+        let v1 = vector(1.0, 2.0, 3.0);
+        let v2 = vector(2.0, 3.0, 4.0);
+        assert_eq!(cross(&v1, &v2), vector(-1.0, 2.0, -1.0));
+        assert_eq!(cross(&v2, &v1), vector(1.0, -2.0, 1.0));
     }
 }
