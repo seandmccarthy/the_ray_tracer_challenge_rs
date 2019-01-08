@@ -83,6 +83,10 @@ pub fn vector(x: f64, y: f64, z: f64) -> Tuple {
     Tuple { x, y, z, w: 0.0 }
 }
 
+pub fn colour(red: f64, green: f64, blue: f64) -> Tuple {
+    Tuple { x: red, y: green, z: blue, w: 0.0 }
+}
+
 pub fn magnitude(v: &Tuple) -> f64 {
     (v.x.powi(2) + v.y.powi(2) + v.z.powi(2) + v.w.powi(2)).sqrt()
 }
@@ -241,3 +245,4 @@ mod tests {
         assert_eq!(cross(&v2, &v1), vector(1.0, -2.0, 1.0));
     }
 }
+

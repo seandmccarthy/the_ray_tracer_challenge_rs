@@ -1,4 +1,5 @@
-use ray_tracer::*;
+mod rt;
+use crate::rt::tuple::*;
 
 fn main() {
     projectile_run();
